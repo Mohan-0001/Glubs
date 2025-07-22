@@ -216,49 +216,29 @@ const EventDetails= () => {
     return (
       <div className={`min-h-screen ${themeClasses.background}`}>
         <Navbar />
-            {event.participationType === 'Team' ? (
-              <button
-                onClick={() => navigate(`/events/${eventId}/team-room`)}
-                disabled={daysLeft < 0}
-                className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
-                  daysLeft < 0
-                    ? isDarkMode
-                      ? "bg-gray-800/30 border border-gray-600/30 text-gray-500 cursor-not-allowed"
-                      : "bg-gray-200 border border-gray-300 text-gray-500 cursor-not-allowed"
-                    : themeClasses.primaryButton + " shadow-lg hover:shadow-indigo-500/25"
-                }`}
-              >
-                {daysLeft < 0 ? "Registration Closed" : "Join/Create Team"}
-              </button>
-            ) : (
-              <button
-                onClick={handleRegister}
-                disabled={isUserRegistered() || registering || daysLeft < 0}
-                className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
-                  isUserRegistered()
-                    ? isDarkMode
-                      ? "bg-green-900/30 border border-green-500/30 text-green-300 cursor-not-allowed"
-                      : "bg-green-100 border border-green-300 text-green-700 cursor-not-allowed"
-                    : registering
-                      ? isDarkMode
-                        ? "bg-indigo-900/30 border border-indigo-500/30 text-indigo-300 cursor-not-allowed animate-pulse"
-                        : "bg-indigo-100 border border-indigo-300 text-indigo-700 cursor-not-allowed animate-pulse"
-                      : daysLeft < 0
-                        ? isDarkMode
-                          ? "bg-gray-800/30 border border-gray-600/30 text-gray-500 cursor-not-allowed"
-                          : "bg-gray-200 border border-gray-300 text-gray-500 cursor-not-allowed"
-                        : themeClasses.primaryButton + " shadow-lg hover:shadow-indigo-500/25"
-                }`}
-              >
-                {isUserRegistered()
-                  ? "✓ Already Registered"
-                  : registering
-                    ? "Registering..."
-                    : daysLeft < 0
-                      ? "Registration Closed"
-                      : "Register Now"}
-              </button>
-            )}
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-indigo-500" />
+            <p className={`${themeClasses.text} text-lg`}>Loading event details...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (error || !event) {
+    return (
+      <div className={`min-h-screen ${themeClasses.background}`}>
+        <Navbar />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <p className={`${themeClasses.text} text-xl mb-4`}>{error || "Event not found"}</p>
+            <button
+              onClick={() => navigate("/events")}
+              className={`${themeClasses.primaryButton} px-6 py-3 rounded-lg`}
+            >
+              Back to Events
+            </button>
           </div>
         </div>
       </div>
@@ -532,33 +512,51 @@ const EventDetails= () => {
                   </div>
                 )}
               </div>
-              <button
-                onClick={handleRegister}
-                disabled={isUserRegistered() || registering || daysLeft < 0}
-                className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
-                  isUserRegistered()
-                    ? isDarkMode
-                      ? "bg-green-900/30 border border-green-500/30 text-green-300 cursor-not-allowed"
-                      : "bg-green-100 border border-green-300 text-green-700 cursor-not-allowed"
-                    : registering
-                      ? isDarkMode
-                        ? "bg-indigo-900/30 border border-indigo-500/30 text-indigo-300 cursor-not-allowed animate-pulse"
-                        : "bg-indigo-100 border border-indigo-300 text-indigo-700 cursor-not-allowed animate-pulse"
-                      : daysLeft < 0
+              <div className="mb-6">
+                {event.participationType === 'Team' ? (
+                  <button
+                    onClick={() => navigate(`/events/${eventId}/team-room`)}
+                    disabled={daysLeft < 0}
+                    className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
+                      daysLeft < 0
                         ? isDarkMode
                           ? "bg-gray-800/30 border border-gray-600/30 text-gray-500 cursor-not-allowed"
                           : "bg-gray-200 border border-gray-300 text-gray-500 cursor-not-allowed"
                         : themeClasses.primaryButton + " shadow-lg hover:shadow-indigo-500/25"
-                }`}
-              >
-                {isUserRegistered()
-                  ? "✓ Already Registered"
-                  : registering
-                    ? "Registering..."
-                    : daysLeft < 0
-                      ? "Registration Closed"
-                      : "Register Now"}
-              </button>
+                    }`}
+                  >
+                    {daysLeft < 0 ? "Registration Closed" : "Join/Create Team"}
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleRegister}
+                    disabled={isUserRegistered() || registering || daysLeft < 0}
+                    className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
+                      isUserRegistered()
+                        ? isDarkMode
+                          ? "bg-green-900/30 border border-green-500/30 text-green-300 cursor-not-allowed"
+                          : "bg-green-100 border border-green-300 text-green-700 cursor-not-allowed"
+                        : registering
+                          ? isDarkMode
+                            ? "bg-indigo-900/30 border border-indigo-500/30 text-indigo-300 cursor-not-allowed animate-pulse"
+                            : "bg-indigo-100 border border-indigo-300 text-indigo-700 cursor-not-allowed animate-pulse"
+                          : daysLeft < 0
+                            ? isDarkMode
+                              ? "bg-gray-800/30 border border-gray-600/30 text-gray-500 cursor-not-allowed"
+                              : "bg-gray-200 border border-gray-300 text-gray-500 cursor-not-allowed"
+                            : themeClasses.primaryButton + " shadow-lg hover:shadow-indigo-500/25"
+                    }`}
+                  >
+                    {isUserRegistered()
+                      ? "✓ Already Registered"
+                      : registering
+                        ? "Registering..."
+                        : daysLeft < 0
+                          ? "Registration Closed"
+                          : "Register Now"}
+                  </button>
+                )}
+              </div>
               <div className="flex gap-2 mt-4">
                 <button
                   onClick={() => shareToWhatsApp(event)}

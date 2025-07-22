@@ -36,6 +36,8 @@ import AddHostBasicDetails from "./Hosts/AddHostBasicDetails";
 import EditHostBasicDetails from "./Hosts/EditHostBasicDetails";
 import TeamRoom from "./Events/TeamRoom";
 import TeamInvite from "./Events/TeamInvite";
+import TeamRoom from "./Events/TeamRoom";
+import TeamInvite from "./Events/TeamInvite";
 
 export default function Router() {
   return (
@@ -69,6 +71,8 @@ export default function Router() {
         <Route path="/events/:eventId/add-feedback" element={<AddFeedback />} />
         <Route path="/events/:eventId/edit-feedback/:feedbackId" element={<EditFeedback />} />
         <Route path="/clubs/:clubId/events" element={<ClubEvents />} />
+        <Route path="/events/:eventId/team-room" element={<TeamRoom />} />
+        <Route path="/team/invite/:inviteCode" element={<TeamInvite />} />
         <Route path="/events/:eventId/team-room" element={<TeamRoom />} />
         <Route path="/team/invite/:inviteCode" element={<TeamInvite />} />
         <Route path="/profile" element={<MyProfile />} />
