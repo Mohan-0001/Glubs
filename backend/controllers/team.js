@@ -112,7 +112,7 @@ exports.sendTeamInvitation = catchAsync(async (req, res, next) => {
       });
 
       // Send invitation email
-      const inviteLink = `${process.env.FRONTEND_URL}/team/invite/${team.inviteCode}`;
+      const inviteLink = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/team/invite/${team.inviteCode}`;
       
       try {
         await sendEmail({

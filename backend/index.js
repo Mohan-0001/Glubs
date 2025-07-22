@@ -37,12 +37,14 @@ const clubRouter = require("./routers/club");
 const feedbackRouter = require("./routers/feedback");
 const adminRouter = require("./routers/admin")
 const teamRouter = require("./routers/team");
+const teamRouter = require("./routers/team");
 
 app.use("/users", userRouter);
 app.use("/event", eventRouter);
 app.use("/clubs", clubRouter);
 app.use("/feedback", feedbackRouter);
 app.use("/admin", adminRouter);
+app.use("/teams", teamRouter);
 app.use("/teams", teamRouter);
 
 // Global Error Handler
